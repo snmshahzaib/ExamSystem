@@ -2,10 +2,10 @@
 
 @section('content')
 <div class="container">
-    <div class="row h1">Subject</div>
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
+                <div class="row h1 ms-2 mt-2">Subject</div>
                 <div class="card-header">Create</div>
                 <div class="card-body">
                     <h4>Title</h4>
