@@ -50,9 +50,7 @@ class SubjectController extends Controller
      */
     public function store(StoreSubjectRequest $request, UnsetToken $unset)
     {
-        if($request->user()->cannot('store', Subject::class)){
-            abort(403);
-        }elseif($request->isMethod('post')) {
+       if($request->isMethod('post')) {
             $data = $request->all();
             $unset->unset($data);
             $obj = new Subject;

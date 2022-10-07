@@ -43,7 +43,7 @@ class SubjectPolicy
     {
         return $user->role == 'teacher';
     }
-
+    
     public function edit(User $user)
     {
         return $user->role == 'teacher';
