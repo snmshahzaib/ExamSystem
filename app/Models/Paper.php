@@ -12,9 +12,9 @@ class Paper extends Model
         'name', 'type','date', 'subject_id', 'teacher_id'
     ];
 
-    public function questions()
+    public function subjectives()
     {
-        return $this->hasMany(Question::class);
+        return $this->hasMany(Subjective::class);
     }
     public function subject()
     {

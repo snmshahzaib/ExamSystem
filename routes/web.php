@@ -27,6 +27,9 @@ Route::group(['prefix' => 'teacher'], function()
     Route::get('dashboard', [App\Http\Controllers\HomeController::class, 'isTeacher']);
     Route::resource('/subjects', App\Http\Controllers\SubjectController::class);
     Route::resource('/papers', App\Http\Controllers\PaperController::class);
+    Route::resource('/questions', App\Http\Controllers\QuestionController::class);
+    Route::resource('/subjectives', App\Http\Controllers\SubjectiveController::class);
+    Route::resource('/mcqs', App\Http\Controllers\McqController::class);
 });
 
 Route::group(['prefix' => 'student'], function()

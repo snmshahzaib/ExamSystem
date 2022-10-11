@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateQuestionsTable extends Migration
+class CreateMcqsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateQuestionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('questions', function (Blueprint $table) {
+        Schema::create('mcqs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('paper_id')->constrained('papers')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('subject_id')->constrained('subjects')->onDelete('cascade')->onUpdate('cascade');
+            $table->string('type');
             $table->string('question');
             $table->string('grade');
-            $table->string('type');
+            $table->string('correct_option');
             $table->timestamps();
         });
     }
@@ -31,6 +31,6 @@ class CreateQuestionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('questions');
+        Schema::dropIfExists('mcqs');
     }
 }

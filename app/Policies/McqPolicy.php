@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\Subject;
+use App\Models\Mcq;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class SubjectPolicy
+class McqPolicy
 {
     use HandlesAuthorization;
 
@@ -25,10 +25,10 @@ class SubjectPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Subject  $subject
+     * @param  \App\Models\Mcq  $mcq
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Subject $subject)
+    public function view(User $user, Mcq $mcq)
     {
         return $user->role == 'teacher';
     }
@@ -43,7 +43,8 @@ class SubjectPolicy
     {
         return $user->role == 'teacher';
     }
-    
+
+
     public function edit(User $user)
     {
         return $user->role == 'teacher';
@@ -53,10 +54,10 @@ class SubjectPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Subject  $subject
+     * @param  \App\Models\Mcq  $mcq
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Subject $subject)
+    public function update(User $user, Mcq $mcq)
     {
         return $user->role == 'teacher';
     }
@@ -65,7 +66,7 @@ class SubjectPolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Subject  $subject
+     * @param  \App\Models\Mcq  $mcq
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function delete(User $user)
@@ -77,10 +78,10 @@ class SubjectPolicy
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Subject  $subject
+     * @param  \App\Models\Mcq  $mcq
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Subject $subject)
+    public function restore(User $user, Mcq $mcq)
     {
         //
     }
@@ -89,10 +90,10 @@ class SubjectPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Subject  $subject
+     * @param  \App\Models\Mcq  $mcq
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Subject $subject)
+    public function forceDelete(User $user, Mcq $mcq)
     {
         //
     }

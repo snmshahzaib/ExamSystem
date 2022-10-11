@@ -68,7 +68,7 @@ class PaperPolicy
      * @param  \App\Models\Paper  $paper
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Paper $paper)
+    public function delete(User $user)
     {
         return $user->role == 'teacher';
     }
