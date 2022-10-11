@@ -29,7 +29,19 @@
                             </div>
                         </div>
                     @else
-                          You have Student Access
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-4 text-center">
+                                <h1></h1>
+                                Incoming Exams
+                            </div>
+                            <div class="col-md-4 text-center">
+                                <h1></h1>
+                                Registered Subjects
+                            </div>
+
+                        </div>
+                    </div>
                     @endcan
                 </div>
             </div>

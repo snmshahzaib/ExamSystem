@@ -8,11 +8,17 @@ use App\Http\Requests\StoreQuestionRequest;
 use App\Http\Requests\UpdateQuestionRequest;
 use App\Models\Mcq;
 use App\Models\Subject;
+use App\Models\TrueFalseQuestion;
 use Illuminate\Http\Request;
 
 
 class QuestionController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -25,6 +31,7 @@ class QuestionController extends Controller
         }else{
             $data['subjectives'] = Subjective::all();
             $data['mcqs'] = Mcq::all();
+            $data['truefalse'] = TrueFalseQuestion::all();
             return view('questions.index', $data);
         }
     }

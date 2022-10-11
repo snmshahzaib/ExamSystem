@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Mcq;
+use App\Models\TrueFalseQuestion;
+use App\Http\Requests\StoreTrueFalseQuestionRequest;
+use App\Http\Requests\UpdateTrueFalseQuestionRequest;
 use App\Models\Paper;
-use App\Models\Option;
-use App\Http\Requests\StoreMcqRequest;
-use App\Http\Requests\UpdateMcqRequest;
-use App\Classes\UnsetToken;
 use Illuminate\Http\Request;
+use App\Classes\UnsetToken;
 
-class McqController extends Controller
+class TrueFalseQuestionController extends Controller
 {
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -25,6 +25,7 @@ class McqController extends Controller
     {
         return abort(403);
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -32,35 +33,26 @@ class McqController extends Controller
      */
     public function create(Request $request)
     {
-        if($request->user()->cannot('create', Mcq::class)){
+        if($request->user()->cannot('create', TrueFalseQuestion::class)){
             abort(403);
         }else
             $data['papers'] = Paper::all();
-            return view('questions.mcqs.create', $data);
+            return view('questions.truefalsequestion.create', $data);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreMcqRequest  $request
+     * @param  \App\Http\Requests\StoreTrueFalseQuestionRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreMcqRequest $request, UnsetToken $unset)
+    public function store(StoreTrueFalseQuestionRequest $request, UnsetToken $unset, TrueFalseQuestion $trueFalseQuestion)
     {
         if($request->isMethod('post')) {
             $data = $request->all();
             $unset->unset($data);
-            $data['type'] = 'mcq';
-            $options['options'] = $data['option'];
-            unset($data['option']);
-            $obj = new Mcq;
-            $obj1 = new Option;
-            $mcq = $obj->create($data);
-            foreach ($options['options'] as $key => $value) {
-                $opt['mcq_id'] = $mcq->id;
-                $opt['option'] = $value;
-                $obj1->create($opt);
-            }
+            $data['type'] = 'truefalse';
+            $trueFalseQuestion->create($data);
             return redirect('teacher/questions');
         }
     }
@@ -68,10 +60,10 @@ class McqController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Mcq  $mcq
+     * @param  \App\Models\TrueFalseQuestion  $trueFalseQuestion
      * @return \Illuminate\Http\Response
      */
-    public function show(Mcq $mcq)
+    public function show(TrueFalseQuestion $trueFalseQuestion)
     {
         //
     }
@@ -79,7 +71,7 @@ class McqController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Mcq  $mcq
+     * @param  \App\Models\TrueFalseQuestion  $trueFalseQuestion
      * @return \Illuminate\Http\Response
      */
     public function edit($id, Request $request)
@@ -88,34 +80,25 @@ class McqController extends Controller
             abort(403);
         }else
             $data['papers'] = Paper::all();
-            $data['mcq'] = Mcq::find($id);
-            return view('questions.mcqs.edit', $data);
+            $data['tf'] = TrueFalseQuestion::find($id);
+            return view('questions.truefalsequestion.edit', $data);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateMcqRequest  $request
-     * @param  \App\Models\Mcq  $mcq
+     * @param  \App\Http\Requests\UpdateTrueFalseQuestionRequest  $request
+     * @param  \App\Models\TrueFalseQuestion  $trueFalseQuestion
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateMcqRequest $request, UnsetToken $unset, $id)
+    public function update(UpdateTrueFalseQuestionRequest $request, $id, UnsetToken $unset)
     {
-        if($request->isMethod('put')){
+        if($request->isMethod('put')) {
             $data = $request->all();
             $unset->unset($data);
-            $data['type'] = 'mcq';
-            $options['options'] = $data['option'];
-            unset($data['option']);
-            $Obj = Mcq::findOrFail($id);
-            $obj1 = Option::where('mcq_id', $id);
-            $Obj->update($data);
-            foreach ($obj1->get() as $key => $value) {
-                $obj1 = Option::where('id', $value->id);
-                $opt['mcq_id'] = $id;
-                $opt['option'] = $options['options'][$key];
-                $obj1->update($opt);
-            }
+            $data['type'] = 'truefalse';
+            $obj = TrueFalseQuestion::find($id);
+            $obj->update($data);
             return redirect('teacher/questions');
         }
     }
@@ -123,7 +106,7 @@ class McqController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Mcq  $mcq
+     * @param  \App\Models\TrueFalseQuestion  $trueFalseQuestion
      * @return \Illuminate\Http\Response
      */
     public function destroy($id, Request $request)
@@ -131,8 +114,7 @@ class McqController extends Controller
         if($request->user()->cannot('delete', Mcq::class)){
             abort(403);
         }else
-            Mcq::destroy($id);
-            Option::where('mcq_id', $id)->delete();
+            TrueFalseQuestion::destroy($id);
             return redirect('teacher/questions');
     }
 }

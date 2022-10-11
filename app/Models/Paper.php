@@ -16,6 +16,16 @@ class Paper extends Model
     {
         return $this->hasMany(Subjective::class);
     }
+
+    public function mcqs()
+    {
+        return $this->hasMany(Mcq::class);
+    }
+    public function trueFalseQuestions()
+    {
+        return $this->hasMany(TrueFalseQuestion::class);
+    }
+
     public function subject()
     {
         return $this->belongsTo(Subject::class);

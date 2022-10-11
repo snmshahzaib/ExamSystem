@@ -9,6 +9,7 @@
                     <div class="">
                         <a href="{{ route('mcqs.create')}}" class="btn btn-sm btn-info col-md-3">Add Objectives</a>
                         <a href="{{ route('subjectives.create')}} " class="btn btn-sm btn-info col-md-3">Add Subjectives</a>
+                        <a href="{{ route('truefalsequestions.create')}} " class="btn btn-sm btn-info col-md-3">Add True/False</a>
                     </div>
                 </div>
                 <div class="card-body">
@@ -61,6 +62,24 @@
                                                     <button type="submit" class="btn btn-sm btn-danger">Delete</button>
                                                 </form>
                                                 <a href="mcqs/{{$mcq->id}}/edit" class="btn btn-sm btn-info col-md-3">Edit</a>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                    @endforeach
+                                    @foreach ($truefalse as $tf)
+                                    <tr>
+                                        <th scope="col" class="col-md-1">{{$tf->paper->subject->name}}({{$tf->paper->type}})</th>
+                                        <th scope="col" class="col-md-1">{{$tf->id}}</th>
+                                        <th scope="col" class="col-md-1">{{$tf->type}}</th>
+                                        <th scope="col" class="col-md-7">{{$tf->question}}</th>
+                                        <th class="col-md-2">
+                                            <div class="row">
+                                                <form method="POST" action="{{route('truefalsequestions.destroy', $tf->id)}}" class="col-md-6">
+                                                    @method('DELETE')
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                                </form>
+                                                <a href="truefalsequestions/{{$tf->id}}/edit" class="btn btn-sm btn-info col-md-3">Edit</a>
                                             </div>
                                         </th>
                                     </tr>
