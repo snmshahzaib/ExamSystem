@@ -34,11 +34,11 @@
             My Subjects
           </a>
           <ul class="dropdown-menu  p-3" aria-labelledby="dropdownMenuLink">
-            <li><a class="dropdown-item" href="">Registered Subjects</a></li>
-            <li><a class="dropdown-item" href="">Register Subject</a></li>
+            <li><a class="dropdown-item" href="{{ route('registersubjects.index') }}">Registered Subjects</a></li>
+            <li><a class="dropdown-item" href="{{route('registersubjects.create')}}">Register Subject</a></li>
           </ul>
       </div>
-      <a class="list-group-item list-group-item-action list-group-item-light p-3" href="">My Exams</a>
+      <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{{route('attemptexams.index')}}">My Exams</a>
       <a class="list-group-item list-group-item-action list-group-item-light p-3" href="">My Result</a>
   </div>
 </div>

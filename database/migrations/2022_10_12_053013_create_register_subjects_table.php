@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRegisteredSubjectsTable extends Migration
+class CreateRegisterSubjectsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateRegisteredSubjectsTable extends Migration
      */
     public function up()
     {
-        Schema::create('registered_subjects', function (Blueprint $table) {
+        Schema::create('register_subjects', function (Blueprint $table) {
             $table->id();
             $table->foreignId('student_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->string('subject');
+            $table->foreignId('subject_id')->constrained('subjects')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateRegisteredSubjectsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('registered_subjects');
+        Schema::dropIfExists('register_subjects');
     }
 }

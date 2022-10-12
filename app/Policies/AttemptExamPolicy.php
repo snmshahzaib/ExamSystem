@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\RegisteredSubject;
+use App\Models\AttemptExam;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class RegisteredSubjectPolicy
+class AttemptExamPolicy
 {
     use HandlesAuthorization;
 
@@ -25,10 +25,10 @@ class RegisteredSubjectPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\RegisteredSubject  $registeredSubject
+     * @param  \App\Models\AttemptExam  $attemptExam
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, RegisteredSubject $registeredSubject)
+    public function view(User $user, AttemptExam $attemptExam)
     {
         //
     }
@@ -48,10 +48,10 @@ class RegisteredSubjectPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\RegisteredSubject  $registeredSubject
+     * @param  \App\Models\AttemptExam  $attemptExam
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, RegisteredSubject $registeredSubject)
+    public function update(User $user, AttemptExam $attemptExam)
     {
         //
     }
@@ -60,10 +60,10 @@ class RegisteredSubjectPolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\RegisteredSubject  $registeredSubject
+     * @param  \App\Models\AttemptExam  $attemptExam
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, RegisteredSubject $registeredSubject)
+    public function delete(User $user, AttemptExam $attemptExam)
     {
         //
     }
@@ -72,10 +72,10 @@ class RegisteredSubjectPolicy
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\RegisteredSubject  $registeredSubject
+     * @param  \App\Models\AttemptExam  $attemptExam
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, RegisteredSubject $registeredSubject)
+    public function restore(User $user, AttemptExam $attemptExam)
     {
         //
     }
@@ -84,10 +84,10 @@ class RegisteredSubjectPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\RegisteredSubject  $registeredSubject
+     * @param  \App\Models\AttemptExam  $attemptExam
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, RegisteredSubject $registeredSubject)
+    public function forceDelete(User $user, AttemptExam $attemptExam)
     {
         //
     }

@@ -66,5 +66,6 @@
             @yield('content')
         </main>
     </div>
+    @include('partials.scripts')
 </body>
 </html>
