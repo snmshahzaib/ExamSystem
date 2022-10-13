@@ -33,7 +33,11 @@
                                                 <div class="row">
                                                     <form method="GET" action="{{route('attemptexams.create')}}">
                                                         <input type="hidden" name="paper_id" value="{{$paper->id}}">
-                                                        <button type="submit" class="btn btn-sm btn-danger col-md-2">Attempt</button>
+                                                        @if($paper->status != "attempted")
+                                                            <button type="submit" class="btn btn-sm btn-danger col-md-2">Attempt</button>
+                                                        @else
+                                                        <button type="submit" class="btn btn-sm btn-success col-md-3" disabled>Attempted</button>
+                                                        @endif
                                                     </form>
                                                 </div>
                                             </th>

@@ -28,7 +28,7 @@ class PaperPolicy
      * @param  \App\Models\Paper  $paper
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Paper $paper)
+    public function view(User $user)
     {
         return $user->role == 'teacher';
     }
@@ -56,7 +56,7 @@ class PaperPolicy
      * @param  \App\Models\Paper  $paper
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Paper $paper)
+    public function update(User $user)
     {
         return $user->role == 'teacher';
     }

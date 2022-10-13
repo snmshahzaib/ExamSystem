@@ -66,6 +66,6 @@
             @yield('content')
         </main>
     </div>
-    @include('partials.scripts')
+    {{-- @include('partials.scripts') --}}
 </body>
 </html>

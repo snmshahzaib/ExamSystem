@@ -32,11 +32,17 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-4 text-center">
-                                <h1></h1>
-                                Incoming Exams
+                                @php $exams =0 @endphp
+                                @foreach ($studentdetails as $regSubject)
+                                    @if($regSubject->subject->papers->count() !== 0 )
+                                        @php $exams++ @endphp
+                                    @endif
+                                @endforeach
+                                <h1> {{$exams}} </h1>   
+                                    Incoming Exams
                             </div>
                             <div class="col-md-4 text-center">
-                                <h1></h1>
+                                <h1>{{$studentdetails->count()}}</h1>
                                 Registered Subjects
                             </div>
 

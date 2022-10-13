@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Gate;
 use App\Models\User;
 use App\Models\Subject;
 use App\Models\Paper;
+use App\Models\RegisterSubject;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -36,8 +38,9 @@ class HomeController extends Controller
     }
     public function isStudent(User $user){
         if (Gate::authorize('isStudent', $user))
-            $data['subjects'] =  Subject::count();
-            $data['papers'] = Paper::count();
+            $data['total_subjects'] =  Subject::count();
+            $data['total_papers'] = Paper::count();
+            $data['studentdetails'] =  RegisterSubject::where('student_id', Auth::user()->id)->get();
             return view('index', $data);
     }
     public function isTeacher(User $user){

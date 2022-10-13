@@ -9,7 +9,7 @@ class Paper extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'name', 'type','date', 'subject_id', 'teacher_id'
+        'name', 'type','date', 'subject_id', 'teacher_id', 'status'
     ];
 
     public function subjectives()

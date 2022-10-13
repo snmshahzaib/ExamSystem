@@ -15,6 +15,11 @@ class CreateAttemptExamsTable extends Migration
     {
         Schema::create('attempt_exams', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('student_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('paper_id')->constrained('papers')->onDelete('cascade')->onUpdate('cascade');
+            $table->unsignedBigInteger('question_id');
+            $table->string('type');
+            $table->string('answer');
             $table->timestamps();
         });
     }

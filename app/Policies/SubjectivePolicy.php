@@ -57,7 +57,7 @@ class SubjectivePolicy
      * @param  \App\Models\Subjective  $subjective
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Subjective $subjective)
+    public function update(User $user)
     {
         return $user->role == 'teacher';
     }
@@ -81,7 +81,7 @@ class SubjectivePolicy
      * @param  \App\Models\Subjective  $subjective
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Subjective $subjective)
+    public function restore(User $user)
     {
         //
     }
@@ -93,7 +93,7 @@ class SubjectivePolicy
      * @param  \App\Models\Subjective  $subjective
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Subjective $subjective)
+    public function forceDelete(User $user)
     {
         //
     }

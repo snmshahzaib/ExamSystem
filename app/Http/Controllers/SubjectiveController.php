@@ -26,6 +26,7 @@ class SubjectiveController extends Controller
      */
     public function index()
     {
+        
     }
 
     /**

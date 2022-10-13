@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Classes\Answer;
 use App\Models\AttemptExam;
 use App\Http\Requests\StoreAttemptExamRequest;
 use App\Http\Requests\UpdateAttemptExamRequest;
@@ -40,9 +41,10 @@ class AttemptExamController extends Controller
      * @param  \App\Http\Requests\StoreAttemptExamRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreAttemptExamRequest $request)
+    public function store(StoreAttemptExamRequest $request, Answer $answer)
     {
-        //
+        $answer->store($request);
+        return redirect('student/attemptexams');
     }
 
     /**
