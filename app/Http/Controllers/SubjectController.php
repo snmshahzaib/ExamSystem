@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Subject;
 use App\Http\Requests\StoreSubjectRequest;
 use App\Http\Requests\UpdateSubjectRequest;
-use App\Classes\UnsetToken;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class SubjectController extends Controller
@@ -48,11 +46,10 @@ class SubjectController extends Controller
      * @param  \App\Http\Requests\StoreSubjectRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreSubjectRequest $request, UnsetToken $unset)
+    public function store(StoreSubjectRequest $request)
     {
        if($request->isMethod('post')) {
-            $data = $request->all();
-            $unset->unset($data);
+            $data = $request->except('_token');
             $obj = new Subject;
             $obj->insert($data);
             return redirect('teacher/subjects');
@@ -90,13 +87,12 @@ class SubjectController extends Controller
      * @param  \App\Models\Subject  $subject
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateSubjectRequest $request, Subject $subject, UnsetToken $unset)
+    public function update(UpdateSubjectRequest $request, Subject $subject)
     {
         if($request->user()->cannot('update', Subject::class)){
             abort(403);
-        }elseif($request->isMethod('put')){
-            $data = $request->all();
-            $unset->unset($data);
+        }else{
+            $data = $request->except('_token');
             $Obj = $subject->find($request->id);
             $Obj->update($data);
             return redirect('teacher/subjects');

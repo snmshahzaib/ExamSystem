@@ -46,15 +46,12 @@ class TrueFalseQuestionController extends Controller
      * @param  \App\Http\Requests\StoreTrueFalseQuestionRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreTrueFalseQuestionRequest $request, UnsetToken $unset, TrueFalseQuestion $trueFalseQuestion)
+    public function store(StoreTrueFalseQuestionRequest $request, TrueFalseQuestion $trueFalseQuestion)
     {
-        if($request->isMethod('post')) {
-            $data = $request->all();
-            $unset->unset($data);
-            $data['type'] = 'truefalse';
-            $trueFalseQuestion->create($data);
-            return redirect('teacher/questions');
-        }
+        $data = $request->except('_token');
+        $data['type'] = 'truefalse';
+        $trueFalseQuestion->create($data);
+        return redirect('teacher/questions');
     }
 
     /**
@@ -91,16 +88,13 @@ class TrueFalseQuestionController extends Controller
      * @param  \App\Models\TrueFalseQuestion  $trueFalseQuestion
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateTrueFalseQuestionRequest $request, $id, UnsetToken $unset)
+    public function update(UpdateTrueFalseQuestionRequest $request, $id)
     {
-        if($request->isMethod('put')) {
-            $data = $request->all();
-            $unset->unset($data);
-            $data['type'] = 'truefalse';
-            $obj = TrueFalseQuestion::find($id);
-            $obj->update($data);
-            return redirect('teacher/questions');
-        }
+        $data = $request->except('_token');
+        $data['type'] = 'truefalse';
+        $obj = TrueFalseQuestion::find($id);
+        $obj->update($data);
+        return redirect('teacher/questions');
     }
 
     /**

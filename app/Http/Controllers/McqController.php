@@ -7,7 +7,6 @@ use App\Models\Paper;
 use App\Models\Option;
 use App\Http\Requests\StoreMcqRequest;
 use App\Http\Requests\UpdateMcqRequest;
-use App\Classes\UnsetToken;
 use Illuminate\Http\Request;
 
 class McqController extends Controller
@@ -45,24 +44,21 @@ class McqController extends Controller
      * @param  \App\Http\Requests\StoreMcqRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreMcqRequest $request, UnsetToken $unset)
+    public function store(StoreMcqRequest $request)
     {
-        if($request->isMethod('post')) {
-            $data = $request->all();
-            $unset->unset($data);
-            $data['type'] = 'mcq';
-            $options['options'] = $data['option'];
-            unset($data['option']);
-            $obj = new Mcq;
-            $obj1 = new Option;
-            $mcq = $obj->create($data);
-            foreach ($options['options'] as $key => $value) {
-                $opt['mcq_id'] = $mcq->id;
-                $opt['option'] = $value;
-                $obj1->create($opt);
-            }
-            return redirect('teacher/questions');
+        $data = $request->except('_token');
+        $data['type'] = 'mcq';
+        $options['options'] = $data['option'];
+        unset($data['option']);
+        $obj = new Mcq;
+        $obj1 = new Option;
+        $mcq = $obj->create($data);
+        foreach ($options['options'] as $key => $value) {
+            $opt['mcq_id'] = $mcq->id;
+            $opt['option'] = $value;
+            $obj1->create($opt);
         }
+        return redirect('teacher/questions');
     }
 
     /**
@@ -99,25 +95,22 @@ class McqController extends Controller
      * @param  \App\Models\Mcq  $mcq
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateMcqRequest $request, UnsetToken $unset, $id)
+    public function update(UpdateMcqRequest $request, $id)
     {
-        if($request->isMethod('put')){
-            $data = $request->all();
-            $unset->unset($data);
-            $data['type'] = 'mcq';
-            $options['options'] = $data['option'];
-            unset($data['option']);
-            $Obj = Mcq::findOrFail($id);
-            $obj1 = Option::where('mcq_id', $id);
-            $Obj->update($data);
-            foreach ($obj1->get() as $key => $value) {
-                $obj1 = Option::where('id', $value->id);
-                $opt['mcq_id'] = $id;
-                $opt['option'] = $options['options'][$key];
-                $obj1->update($opt);
-            }
-            return redirect('teacher/questions');
+        $data = $request->except('_tocken');
+        $data['type'] = 'mcq';
+        $options['options'] = $data['option'];
+        unset($data['option']);
+        $Obj = Mcq::findOrFail($id);
+        $obj1 = Option::where('mcq_id', $id);
+        $Obj->update($data);
+        foreach ($obj1->get() as $key => $value) {
+            $obj1 = Option::where('id', $value->id);
+            $opt['mcq_id'] = $id;
+            $opt['option'] = $options['options'][$key];
+            $obj1->update($opt);
         }
+        return redirect('teacher/questions');
     }
 
     /**

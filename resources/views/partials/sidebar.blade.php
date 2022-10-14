@@ -22,7 +22,7 @@
             <li><a class="dropdown-item" href="{{ route('questions.index') }}">All Questions</a></li>
           </ul>
         </div>
-        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Answers</a>
+        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="studentanswers">Answers</a>
     </div>
 </div>
 <div id="page-content-wrapper">    
@@ -38,7 +38,7 @@
             <li><a class="dropdown-item" href="{{route('registersubjects.create')}}">Register Subject</a></li>
           </ul>
       </div>
-      <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{{route('attemptexams.index')}}">My Exams</a>
+      <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{{route('answers.index')}}">My Exams</a>
       <a class="list-group-item list-group-item-action list-group-item-light p-3" href="">My Result</a>
   </div>
 </div>

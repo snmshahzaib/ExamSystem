@@ -4,10 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Subjective;
 use App\Models\Question;
-use App\Http\Requests\StoreQuestionRequest;
-use App\Http\Requests\UpdateQuestionRequest;
 use App\Models\Mcq;
-use App\Models\Subject;
 use App\Models\TrueFalseQuestion;
 use Illuminate\Http\Request;
 

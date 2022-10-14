@@ -31,11 +31,12 @@ Route::group(['prefix' => 'teacher'], function()
     Route::resource('/subjectives', App\Http\Controllers\SubjectiveController::class);
     Route::resource('/mcqs', App\Http\Controllers\McqController::class);
     Route::resource('/truefalsequestions', App\Http\Controllers\TrueFalseQuestionController::class);
+    Route::get('/studentanswers', [App\Http\Controllers\CheckController::class, 'index']);
 });
 
 Route::group(['prefix' => 'student'], function()
 {
     Route::get('dashboard', [App\Http\Controllers\HomeController::class, 'isStudent']);
     Route::resource('/registersubjects', App\Http\Controllers\RegisterSubjectController::class);
-    Route::resource('/attemptexams', App\Http\Controllers\AttemptExamController::class);
+    Route::resource('/answers', App\Http\Controllers\AnswerController::class);
 });

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Classes\UnsetToken;
 use App\Models\RegisterSubject;
 use App\Models\Subject;
 use App\Http\Requests\StoreRegisterSubjectRequest;
@@ -45,16 +44,13 @@ class RegisterSubjectController extends Controller
      * @param  \App\Http\Requests\StoreRegisterSubjectRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreRegisterSubjectRequest $request, UnsetToken $unset)
+    public function store(StoreRegisterSubjectRequest $request)
     {
-       if($request->isMethod('post')) {
-            $data = $request->all();
-            $unset->unset($data);
-            $data['student_id'] = Auth::user()->id;
-            $obj = new RegisterSubject;
-            $obj->insert($data);
-            return redirect('student/registersubjects');
-        }
+        $data = $request->except('_token');
+        $data['student_id'] = Auth::user()->id;
+        $obj = new RegisterSubject;
+        $obj->insert($data);
+        return redirect('student/registersubjects');
     }
 
     /**
@@ -91,15 +87,12 @@ class RegisterSubjectController extends Controller
      * @param  \App\Models\RegisterSubject  $registerSubject
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateRegisterSubjectRequest $request, $id, UnsetToken $unset)
+    public function update(UpdateRegisterSubjectRequest $request, $id)
     {
-        if($request->isMethod('put')){
-            $data = $request->all();
-            $unset->unset($data);
-            $Obj = RegisterSubject::find($id);
-            $Obj->update($data);
-            return redirect('student/registersubjects');
-        }
+        $data = $request->except('_token');
+        $Obj = RegisterSubject::find($id);
+        $Obj->update($data);
+        return redirect('student/registersubjects');
     }
 
     /**

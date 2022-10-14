@@ -19,7 +19,6 @@ class CreatePapersTable extends Migration
             $table->foreignId('teacher_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
             $table->string('type');
             $table->string('date');
-            $table->string('status')->default('unattempted');
             $table->timestamps();
         });
     }

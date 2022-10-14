@@ -16,4 +16,7 @@ class Subject extends Model
     {
         return $this->hasMany(Paper::class);
     }
+    public function paper(){
+        return $this->hasOne(Paper::class);
+    }
 }

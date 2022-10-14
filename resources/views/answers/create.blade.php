@@ -13,7 +13,7 @@
                         </div>
                     @endif
                     <div class="panel-body">
-                        <form method="POST" action="{{ route('attemptexams.store') }}">
+                        <form method="POST" action="{{ route('answers.store') }}">
                             @csrf
                             <input type="hidden" name="paper_id" value="{{$paper->id}}">
                             @if($paper->mcqs->count() !=  0)
@@ -22,6 +22,7 @@
                                     @foreach ($paper->mcqs as $key => $mcq)
                                         <p class="my-2">{{($key+1)}}. {{$mcq->question}}</p>
                                         @foreach ($mcq->options as $option)
+                                            {{-- <input type="checkbox" class="checkoption" name="mcq[][{{$mcq->id}}]" value="{{$option->option}}" onclick="checkedOnClick(this);">  {{$option->option}} <br> --}}
                                             <input type="checkbox" class="checkoption" name="mcq[{{$mcq->id}}]" value="{{$option->option}}" onclick="checkedOnClick(this);">  {{$option->option}} <br>
                                         @endforeach
                                     @endforeach

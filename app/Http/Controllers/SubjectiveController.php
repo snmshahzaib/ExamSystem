@@ -3,11 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Subjective;
-use App\Models\Subject;
 use App\Models\Paper;
 use App\Http\Requests\StoreSubjectiveRequest;
-use App\Http\Requests\UpdateSubjectiveRequest;
-use App\Classes\UnsetToken;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -49,11 +46,10 @@ class SubjectiveController extends Controller
      * @param  \App\Http\Requests\StoreSubjectiveRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreSubjectiveRequest $request, UnsetToken $unset)
+    public function store(StoreSubjectiveRequest $request)
     {
        if($request->isMethod('post')) {
-            $data = $request->all();
-            $unset->unset($data);
+            $data = $request->except('_token');
             $data['type'] = 'subjective';
             $obj = new Subjective;
             $obj->insert($data);
@@ -95,14 +91,12 @@ class SubjectiveController extends Controller
      * @param  \App\Models\Subjective  $subjective
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, UnsetToken $unset, $id)
+    public function update(Request $request, $id)
     {
         if($request->user()->cannot('update', Subjective::class)){
             abort(403);
-        }elseif($request->isMethod('put')){
-            $data = $request->all();
-            // dd($id);
-            $unset->unset($data);
+        }else{
+            $data = $request->except('_token');
             $data['teacher_id'] = Auth::user()->id;
             $Obj = Subjective::find($id);
             $Obj->update($data);

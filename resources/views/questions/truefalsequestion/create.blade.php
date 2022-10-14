@@ -36,7 +36,10 @@
 
                             <div class="mt-2">
                                 <label class="form-label">Correct Option</label>
-                                <input type="text" name="correct_option" placeholder="......?"  class="form-control">
+                                <select name="correct_option" class="form-control">
+                                    <option value='true'>True</option>
+                                    <option value='false'>False</option>
+                                </select>
                             </div>  
                             <button type="submit" class="btn btn-info mt-2">Add</button>
                         </form>

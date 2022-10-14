@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAttemptExamsTable extends Migration
+class CreateAnswersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateAttemptExamsTable extends Migration
      */
     public function up()
     {
-        Schema::create('attempt_exams', function (Blueprint $table) {
+        Schema::create('answers', function (Blueprint $table) {
             $table->id();
             $table->foreignId('student_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('paper_id')->constrained('papers')->onDelete('cascade')->onUpdate('cascade');
@@ -31,6 +31,6 @@ class CreateAttemptExamsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('attempt_exams');
+        Schema::dropIfExists('answers');
     }
 }

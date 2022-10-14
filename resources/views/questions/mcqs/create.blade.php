@@ -48,7 +48,6 @@
                                 <label class="form-label">Option 4</label>
                                 <input type="text" name="option[3]" placeholder="......?"  class="form-control" >
                             </div>
-
                             <div class="mt-2">
                                 <label class="form-label">Correct Option</label>
                                 <input type="text" name="correct_option" placeholder="......?"  class="form-control" >

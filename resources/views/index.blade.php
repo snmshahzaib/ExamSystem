@@ -25,17 +25,23 @@
                                     <h1>{{$subjects}}</h1>
                                     Subjects
                                 </div>
-
                             </div>
                         </div>
                     @else
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-4 text-center">
-                                @php $exams =0 @endphp
+                           @php $attempted = 0 @endphp
+                           @php $exams =0 @endphp
                                 @foreach ($studentdetails as $regSubject)
-                                    @if($regSubject->subject->papers->count() !== 0 )
-                                        @php $exams++ @endphp
+                                    @if($regSubject->subject->papers->count() !== 0)
+                                        @foreach ($regSubject->subject->papers as $papers )
+                                            @if ($papers->status != 'attempted')
+                                                @php $exams++ @endphp
+                                            @else
+                                                @php $attempted++ @endphp
+                                            @endif
+                                        @endforeach     
                                     @endif
                                 @endforeach
                                 <h1> {{$exams}} </h1>   
@@ -45,7 +51,10 @@
                                 <h1>{{$studentdetails->count()}}</h1>
                                 Registered Subjects
                             </div>
-
+                            <div class="col-md-4 text-center">
+                                <h1>{{$attempted}}</h1>
+                                Attempted Exams
+                            </div>
                         </div>
                     </div>
                     @endcan

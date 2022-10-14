@@ -6,7 +6,6 @@ use App\Models\Paper;
 use App\Models\Subject;
 use App\Http\Requests\StorePaperRequest;
 use App\Http\Requests\UpdatePaperRequest;
-use App\Classes\UnsetToken;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -50,16 +49,13 @@ class PaperController extends Controller
      * @param  \App\Http\Requests\StorePaperRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StorePaperRequest $request, UnsetToken $unset)
+    public function store(StorePaperRequest $request)
     {
-        if($request->isMethod('post')) {
-            $data = $request->all();
-            $unset->unset($data);
-            $data['teacher_id'] = Auth::user()->id;
-            $obj = new Paper;
-            $obj->insert($data);
-            return redirect('teacher/papers');
-        }
+        $data = $request->except('_token');
+        $data['teacher_id'] = Auth::user()->id;
+        $obj = new Paper;
+        $obj->insert($data);
+        return redirect('teacher/papers');
     }
 
     /**
@@ -97,13 +93,12 @@ class PaperController extends Controller
      * @param  \App\Models\Paper  $paper
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatePaperRequest $request, Paper $paper, UnsetToken $unset)
+    public function update(UpdatePaperRequest $request, Paper $paper)
     {
         if($request->user()->cannot('update', Paper::class)){
             abort(403);
-        }elseif($request->isMethod('put')){
-            $data = $request->all();
-            $unset->unset($data);
+        }else{
+            $data = $request->except('_token');
             $data['teacher_id'] = Auth::user()->id;
             $Obj = $paper->find($data['id']);
             $Obj->update($data);
