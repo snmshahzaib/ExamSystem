@@ -30,6 +30,7 @@ Route::group(['prefix' => 'teacher'], function()
     Route::resource('/questions', App\Http\Controllers\QuestionController::class);
     Route::resource('/subjectives', App\Http\Controllers\SubjectiveController::class);
     Route::resource('/mcqs', App\Http\Controllers\McqController::class);
+    Route::resource('/options', App\Http\Controllers\OptionController::class);
     Route::resource('/truefalsequestions', App\Http\Controllers\TrueFalseQuestionController::class);
     Route::get('/studentanswers', [App\Http\Controllers\CheckController::class, 'index']);
 });

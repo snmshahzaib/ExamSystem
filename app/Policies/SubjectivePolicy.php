@@ -45,9 +45,12 @@ class SubjectivePolicy
     }
 
 
-    public function edit(User $user)
+    public function edit(User $user, Subjective $subjective)
     {
-        return $user->role == 'teacher';
+         if ($user->role == 'teacher' && $user->id == $subjective->paper->teacher_id)
+            return true;
+        else
+            return false;
     }
 
     /**
@@ -57,9 +60,12 @@ class SubjectivePolicy
      * @param  \App\Models\Subjective  $subjective
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user)
+    public function update(User $user, Subjective $subjective)
     {
-        return $user->role == 'teacher';
+         if ($user->role == 'teacher' && $user->id == $subjective->paper->teacher_id)
+            return true;
+        else
+            return false;
     }
 
     /**
@@ -69,9 +75,12 @@ class SubjectivePolicy
      * @param  \App\Models\Subjective  $subjective
      * @return \Illuminate\Auth\Access\Response|bool
      */
-     public function delete(User $user)
+     public function delete(User $user, Subjective $subjective)
     {
-        return $user->role == 'teacher';
+         if ($user->role == 'teacher' && $user->id == $subjective->paper->teacher_id)
+            return true;
+        else
+            return false;
     }
 
     /**

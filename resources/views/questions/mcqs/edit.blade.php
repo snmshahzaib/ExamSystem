@@ -33,12 +33,6 @@
                                 <label class="form-label">Question Text</label>
                                 <input type="text" name="question" value="{{$mcq->question}}"  class="form-control" >
                             </div>
-                            @foreach ($mcq->options as $key => $option)
-                            <div class="mt-2">
-                                <label class="form-label">Option {{$key+1}}</label>
-                                <input type="text" name="option[{{$key}}]" value="{{$option->option}}"  class="form-control" >
-                            </div>
-                            @endforeach
                             <div class="mt-2">
                                 <label class="form-label">Correct Option</label>
                                 <input type="text" name="correct_option" value="{{$mcq->correct_option}}"  class="form-control" >

@@ -72,10 +72,11 @@ class RegisterSubjectController extends Controller
      */
     public function edit(RegisterSubject $registerSubject, $id, Request $request)
     {
-        if($request->user()->cannot('edit', RegisterSubject::class)){
+        $data['reg_Subject'] = $registerSubject->find($id);
+
+        if($request->user()->cannot('edit', $data['reg_Subject'])){
             abort(403);
         }else
-            $data['reg_Subject'] = $registerSubject->find($id);
             $data['subjects'] = Subject::all();
             return view('registersubjects.edit', $data);
     }
@@ -89,10 +90,13 @@ class RegisterSubjectController extends Controller
      */
     public function update(UpdateRegisterSubjectRequest $request, $id)
     {
-        $data = $request->except('_token');
         $Obj = RegisterSubject::find($id);
-        $Obj->update($data);
-        return redirect('student/registersubjects');
+        if($request->user()->cannot('edit', $Obj)){
+            abort(403);
+        }else
+            $data = $request->except('_token');
+            $Obj->update($data);
+            return redirect('student/registersubjects');
     }
 
     /**
@@ -103,7 +107,7 @@ class RegisterSubjectController extends Controller
      */
     public function destroy(RegisterSubject $registerSubject, $id, Request $request)
     {
-        if($request->user()->cannot('delete', RegisterSubject::class)){
+        if($request->user()->cannot('delete', $registerSubject->find($id))){
             abort(403);
         }else
             $registerSubject->destroy($id);

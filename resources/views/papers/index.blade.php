@@ -26,13 +26,16 @@
                                     <h5>{{$paper->type}}</h5>
                                     <h3>{{$paper->date}}</h3>
                                     <div class="row">
-                                        <form method="POST" action="{{ route('papers.destroy', $paper->id) }}" class="col-md-6">
+                                        <form method="POST" action="{{ route('papers.destroy', $paper->id) }}" class="col-md-3 ms-1">
                                             @method('DELETE')
                                             @csrf
                                             <button type="submit" class="btn btn-sm btn-danger">Cancel</button>
                                         </form>
-                                        <a href="papers/{{$paper->id}}/edit" class="btn btn-sm btn-info col-md-3">Edit</a>
+                                        <a href="papers/{{$paper->id}}/edit" class="btn btn-sm btn-info col-md-3 ms-3">Edit</a>
+                                        <a href="{{ route('papers.show', $paper->id) }}" class="btn btn-sm btn-info col-md-3 text-center ms-1">Show</a>
+
                                     </div>
+                    
                                 </div>
                             @endforeach    
                             @endif

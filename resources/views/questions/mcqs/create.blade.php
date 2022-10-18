@@ -33,10 +33,13 @@
                                 <input type="text" name="question" placeholder="What are ......?"  class="form-control" >
                             </div>
                             <div class="mt-2">
-                                <label class="form-label">Option 1</label>
-                                <input type="text" name="option[0]" placeholder="......?"  class="form-control" >
+                                <label class="form-label">Correct Option</label>
+                                <input type="text" name="correct_option" placeholder="......?"  class="form-control" >
                             </div>
-                            <div class="mt-2">
+                            <div>
+                                <button type="submit" class="btn btn-info float-end my-2">Add Options</button>
+                            </div>
+                            {{-- <div class="mt-2">
                                 <label class="form-label">Option 2</label>
                                 <input type="text" name="option[1]" placeholder="......?"  class="form-control" >
                             </div>
@@ -47,12 +50,12 @@
                             <div class="mt-2">
                                 <label class="form-label">Option 4</label>
                                 <input type="text" name="option[3]" placeholder="......?"  class="form-control" >
-                            </div>
-                            <div class="mt-2">
+                            </div> --}}
+                            {{-- <div class="mt-2">
                                 <label class="form-label">Correct Option</label>
                                 <input type="text" name="correct_option" placeholder="......?"  class="form-control" >
-                            </div>  
-                            <button type="submit" class="btn btn-info mt-2">Add</button>
+                            </div>
+                            <button type="submit" class="btn btn-info mt-2">Add</button> --}}
                         </form>
                     </div>
                 </div>

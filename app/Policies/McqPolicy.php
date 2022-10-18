@@ -30,7 +30,10 @@ class McqPolicy
      */
     public function view(User $user, Mcq $mcq)
     {
-        return $user->role == 'teacher';
+        if ($user->role == 'teacher')
+            return true;
+        else
+            return false;
     }
 
     /**
@@ -45,10 +48,14 @@ class McqPolicy
     }
 
 
-    public function edit(User $user)
+    public function edit(User $user, Mcq $mcq)
     {
-        return $user->role == 'teacher';
+        if ($user->role == 'teacher' && $user->id == $mcq->paper->teacher_id)
+            return true;
+        else
+            return false;
     }
+   
 
     /**
      * Determine whether the user can update the model.
@@ -59,7 +66,10 @@ class McqPolicy
      */
     public function update(User $user, Mcq $mcq)
     {
-        return $user->role == 'teacher';
+        if ($user->role == 'teacher' && $user->id == $mcq->paper->teacher_id)
+            return true;
+        else
+            return false;
     }
 
     /**
@@ -69,9 +79,12 @@ class McqPolicy
      * @param  \App\Models\Mcq  $mcq
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user)
+    public function delete(User $user, Mcq $mcq)
     {
-        return $user->role == 'teacher';
+        if ($user->role == 'teacher' && $user->id == $mcq->paper->teacher_id)
+            return true;
+        else
+            return false;
     }
 
     /**

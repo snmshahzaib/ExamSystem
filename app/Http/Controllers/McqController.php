@@ -22,7 +22,13 @@ class McqController extends Controller
      */
     public function index()
     {
-        return abort(403);
+        if(request()->user()->cannot('view', Mcq::class)){
+            abort(403);
+        }else
+            $id = request()->id;
+            $data['mcq'] = Mcq::find($id);
+            $data['options'] = Option::where('mcq_id', $id)->get();
+            return view('questions.mcqs.index', $data);
     }
     /**
      * Show the form for creating a new resource.
@@ -48,17 +54,9 @@ class McqController extends Controller
     {
         $data = $request->except('_token');
         $data['type'] = 'mcq';
-        $options['options'] = $data['option'];
-        unset($data['option']);
         $obj = new Mcq;
-        $obj1 = new Option;
         $mcq = $obj->create($data);
-        foreach ($options['options'] as $key => $value) {
-            $opt['mcq_id'] = $mcq->id;
-            $opt['option'] = $value;
-            $obj1->create($opt);
-        }
-        return redirect('teacher/questions');
+        return redirect()->route('options.create', ['id' => $mcq->id]);
     }
 
     /**
@@ -69,7 +67,7 @@ class McqController extends Controller
      */
     public function show(Mcq $mcq)
     {
-        //
+        //  
     }
 
     /**
@@ -80,11 +78,11 @@ class McqController extends Controller
      */
     public function edit($id, Request $request)
     {
-        if($request->user()->cannot('edit', Mcq::class)){
+        $data['mcq'] = Mcq::find($id);
+        if($request->user()->cannot('edit', $data['mcq'])){
             abort(403);
         }else
             $data['papers'] = Paper::all();
-            $data['mcq'] = Mcq::find($id);
             return view('questions.mcqs.edit', $data);
     }
 
@@ -97,20 +95,12 @@ class McqController extends Controller
      */
     public function update(UpdateMcqRequest $request, $id)
     {
-        $data = $request->except('_tocken');
+        $data = $request->except(['_token', '_method']);
         $data['type'] = 'mcq';
-        $options['options'] = $data['option'];
-        unset($data['option']);
         $Obj = Mcq::findOrFail($id);
-        $obj1 = Option::where('mcq_id', $id);
         $Obj->update($data);
-        foreach ($obj1->get() as $key => $value) {
-            $obj1 = Option::where('id', $value->id);
-            $opt['mcq_id'] = $id;
-            $opt['option'] = $options['options'][$key];
-            $obj1->update($opt);
-        }
-        return redirect('teacher/questions');
+        $mcq['id'] = $id;
+        return redirect()->route('mcqs.index', $mcq);
     }
 
     /**
@@ -126,6 +116,6 @@ class McqController extends Controller
         }else
             Mcq::destroy($id);
             Option::where('mcq_id', $id)->delete();
-            return redirect('teacher/questions');
+            return redirect()->route('papers.show', request()->paper_id);
     }
 }

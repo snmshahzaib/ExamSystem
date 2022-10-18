@@ -53,7 +53,7 @@ class AnswerPolicy
      */
     public function update(User $user)
     {
-        return $user->role == 'student';
+        return false;
     }
 
     /**
@@ -65,7 +65,7 @@ class AnswerPolicy
      */
     public function delete(User $user)
     {
-        return $user->role == 'student';
+        return false;
     }
 
     /**

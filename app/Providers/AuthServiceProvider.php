@@ -2,11 +2,16 @@
 
 namespace App\Providers;
 
+use App\Models\Answer;
+use App\Models\Mcq;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use App\Models\Subject;
 use App\Policies\SubjectPolicy;
 use App\Models\Paper;
+use App\Models\RegisterSubject;
+use App\Models\Subjective;
+use App\Models\TrueFalseQuestion;
 use App\Policies\PaperPolicy;
 
 class AuthServiceProvider extends ServiceProvider
@@ -18,8 +23,14 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         // 'App\Models\Model' => 'App\Policies\ModelPolicy',
-        Subject::class => SubjectPolicy::class,
-        Paper::class => PaperPolicy::class,
+        // Subject::class => SubjectPolicy::class,
+        // Paper::class => PaperPolicy::class,
+        // Answer::class => AnswerPolicy::class,
+        // RegisterSubject::class => RegisterSubjectPolicy::class,
+        // Subjective::class => SubjectivePolicy::class,
+        // Subject::class => SubjectPolicy::class,
+        // TrueFalseQuestion::class => TrueFalseQuestionPolicy::class,
+        // Mcq::class => McqPolicy::class,
     ];
 
     /**

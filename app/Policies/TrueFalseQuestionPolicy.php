@@ -44,9 +44,12 @@ class TrueFalseQuestionPolicy
         return $user->role == 'teacher';
     }
 
-    public function edit(User $user)
+    public function edit(User $user, TrueFalseQuestion $trueFalseQuestion)
     {
-        return $user->role == 'teacher';
+         if ($user->role == 'teacher' && $user->id == $trueFalseQuestion->paper->teacher_id)
+            return true;
+        else
+            return false;
     }
 
     /**
@@ -58,7 +61,10 @@ class TrueFalseQuestionPolicy
      */
     public function update(User $user, TrueFalseQuestion $trueFalseQuestion)
     {
-        return $user->role == 'teacher';
+         if ($user->role == 'teacher' && $user->id == $trueFalseQuestion->paper->teacher_id)
+            return true;
+        else
+            return false;
     }
 
     /**
@@ -68,9 +74,12 @@ class TrueFalseQuestionPolicy
      * @param  \App\Models\TrueFalseQuestion  $trueFalseQuestion
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user)
+    public function delete(User $user, TrueFalseQuestion $trueFalseQuestion)
     {
-        return $user->role == 'teacher';
+         if ($user->role == 'teacher' && $user->id == $trueFalseQuestion->paper->teacher_id)
+            return true;
+        else
+            return false;
     }
 
     /**

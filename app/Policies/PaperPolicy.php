@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Models\Mcq;
 use App\Models\Paper;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
@@ -28,9 +29,10 @@ class PaperPolicy
      * @param  \App\Models\Paper  $paper
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user)
+    public function view(User $user, Paper $paper)
     {
         return $user->role == 'teacher';
+
     }
 
     /**
@@ -44,9 +46,20 @@ class PaperPolicy
         return $user->role == 'teacher';
     }
 
-    public function edit(User $user)
+    public function edit(User $user, Paper $paper)
     {
-        return $user->role == 'teacher';
+        if ($user->role == 'teacher' && $user->id == $paper->teacher_id)
+            return true;
+        else
+            return false;
+    }
+
+    public function show(User $user, Paper $paper)
+    {
+         if ($user->role == 'teacher' && $user->id == $paper->teacher_id)
+            return true;
+        else
+            return false;
     }
 
     /**
@@ -56,9 +69,12 @@ class PaperPolicy
      * @param  \App\Models\Paper  $paper
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user)
+    public function update(User $user, Paper $paper)
     {
-        return $user->role == 'teacher';
+        if ($user->role == 'teacher' && $user->id == $paper->teacher_id)
+            return true;
+        else
+            return false;
     }
 
     /**
@@ -68,9 +84,13 @@ class PaperPolicy
      * @param  \App\Models\Paper  $paper
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user)
+    public function delete(User $user, Paper $paper)
     {
-        return $user->role == 'teacher';
+
+        if ($user->role == 'teacher' && $user->id == $paper->teacher_id)
+            return true;
+        else
+            return false;
     }
 
     /**

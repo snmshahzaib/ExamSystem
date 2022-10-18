@@ -76,10 +76,10 @@ class SubjectiveController extends Controller
      */
     public function edit($id, Request $request)
     {
-        if($request->user()->cannot('edit', Subjective::class)){
+        $data['subjective'] = Subjective::find($id);
+        if($request->user()->cannot('edit', $data['subjective'])){
             abort(403);
         }else
-            $data['subjective'] = Subjective::find($id);
             $data['papers'] = Paper::all();
             return view('questions.subjectives.edit', $data);
     }
@@ -93,12 +93,12 @@ class SubjectiveController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if($request->user()->cannot('update', Subjective::class)){
+        $Obj = Subjective::find($id);
+        if($request->user()->cannot('update', $Obj)){
             abort(403);
         }else{
             $data = $request->except('_token');
             $data['teacher_id'] = Auth::user()->id;
-            $Obj = Subjective::find($id);
             $Obj->update($data);
             return redirect('teacher/questions');   
         }
@@ -112,7 +112,7 @@ class SubjectiveController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        if($request->user()->cannot('delete', Subjective::class)){
+        if($request->user()->cannot('delete', Subjective::find($id))){
             abort(403);
         }else
             Paper::destroy($id);

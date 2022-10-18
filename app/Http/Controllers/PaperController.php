@@ -64,9 +64,14 @@ class PaperController extends Controller
      * @param  \App\Models\Paper  $paper
      * @return \Illuminate\Http\Response
      */
-    public function show(Paper $paper)
+    public function show($id)
     {
-        //
+        $paper['paper'] = Paper::find($id);
+        if(request()->user()->cannot('show', $paper['paper'])){
+            abort(403);
+        }else{
+            return view('papers.show', $paper);
+        }
     }
 
     /**
@@ -75,12 +80,12 @@ class PaperController extends Controller
      * @param  \App\Models\Paper  $paper
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, $id)
+    public function edit($id)
     {
-        if($request->user()->cannot('edit', Paper::class)){
+        $data['paper'] = Paper::find($id);
+        if(request()->user()->cannot('edit', $data['paper'])){
             abort(403);
         }else{
-            $data['paper'] = Paper::find($id);
             $data['subjects'] = Subject::all();
             return view('papers.edit', $data);
         }
@@ -95,12 +100,12 @@ class PaperController extends Controller
      */
     public function update(UpdatePaperRequest $request, Paper $paper)
     {
-        if($request->user()->cannot('update', Paper::class)){
+        $data = $request->except('_token');
+        $data['teacher_id'] = Auth::user()->id;
+        $Obj = $paper->find($data['id']);
+        if($request->user()->cannot('update', $Obj)){
             abort(403);
         }else{
-            $data = $request->except('_token');
-            $data['teacher_id'] = Auth::user()->id;
-            $Obj = $paper->find($data['id']);
             $Obj->update($data);
             return redirect('teacher/papers');
         }
@@ -114,7 +119,8 @@ class PaperController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        if($request->user()->cannot('delete', Paper::class)){
+        $paper = Paper::find($id);
+        if($request->user()->cannot('delete', $paper)){
             abort(403);
         }else
             Paper::destroy($id);

@@ -46,9 +46,12 @@ class RegisterSubjectPolicy
 
 
 
-    public function edit(User $user)
+    public function edit(User $user, RegisterSubject $registerSubject)
     {
-        return $user->role == 'student';
+        if ($user->role == 'student' && $user->id == $registerSubject->student_id)
+            return true;
+        else
+            return false;
     }
     /**
      * Determine whether the user can update the model.
@@ -57,9 +60,12 @@ class RegisterSubjectPolicy
      * @param  \App\Models\RegisterSubject  $registerSubject
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user)
+    public function update(User $user, RegisterSubject $registerSubject)
     {
-        return $user->role == 'student';
+        if ($user->role == 'student' && $user->id == $registerSubject->student_id)
+            return true;
+        else
+            return false;
     }
 
     /**
@@ -69,9 +75,12 @@ class RegisterSubjectPolicy
      * @param  \App\Models\RegisterSubject  $registerSubject
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user)
+    public function delete(User $user, RegisterSubject $registerSubject)
     {
-        return $user->role == 'student';
+        if ($user->role == 'student' && $user->id == $registerSubject->student_id)
+            return true;
+        else
+            return false;
     }
 
     /**

@@ -73,11 +73,11 @@ class TrueFalseQuestionController extends Controller
      */
     public function edit($id, Request $request)
     {
-        if($request->user()->cannot('edit', Mcq::class)){
+        $data['tf'] = TrueFalseQuestion::find($id);
+        if($request->user()->cannot('edit', $data['tf'])){
             abort(403);
         }else
             $data['papers'] = Paper::all();
-            $data['tf'] = TrueFalseQuestion::find($id);
             return view('questions.truefalsequestion.edit', $data);
     }
 
@@ -90,11 +90,14 @@ class TrueFalseQuestionController extends Controller
      */
     public function update(UpdateTrueFalseQuestionRequest $request, $id)
     {
-        $data = $request->except('_token');
-        $data['type'] = 'truefalse';
-        $obj = TrueFalseQuestion::find($id);
-        $obj->update($data);
-        return redirect('teacher/questions');
+        if($request->user()->cannot('edit', TrueFalseQuestion::find($id))){
+            abort(403);
+        }else
+            $data = $request->except('_token');
+            $data['type'] = 'truefalse';
+            $obj = TrueFalseQuestion::find($id);
+            $obj->update($data);
+            return redirect('teacher/questions');
     }
 
     /**
@@ -105,7 +108,7 @@ class TrueFalseQuestionController extends Controller
      */
     public function destroy($id, Request $request)
     {
-        if($request->user()->cannot('delete', Mcq::class)){
+        if($request->user()->cannot('delete', TrueFalseQuestion::find($id))){
             abort(403);
         }else
             TrueFalseQuestion::destroy($id);
